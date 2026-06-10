@@ -78,7 +78,7 @@
             bindings = <
                 &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
                 &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
-                &trans       &trans       &trans       &trans       &kp UG_TOG   &kp UG_TOG   &trans       &trans       &trans       &trans       &trans
+                &trans       &trans       &trans       &trans       &out OUT_TOG  &out OUT_TOG  &trans       &trans       &trans       &trans       &trans
                 &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
             >;
         };
