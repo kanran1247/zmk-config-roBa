@@ -1,16 +1,17 @@
 #include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/mouse.h>
 
 /*
- * Keyball39 Remap cheatsheet -> roBa/ZMK移植案
- * source: keymap_cheatsheet_keyball39.pdf
- *
- * 注意:
- * - roBaは42キー/トラックボール/ロータリーエンコーダ搭載のZMKキーボードです。
- * - Keyball39とは物理キー数・位置が違うため、roBa公式default keymapの並びに寄せて配置しています。
- * - ビルド時にエラーが出た場合、まず &lt_to_layer_0 の位置を通常の &lt / &mo に置き換えてください。
+ * roBa keymap - Keyball39 Mac + Windows(JIS) layout port
+ * Mac: Layer 0-5 / Win: Layer 6-11
+ * Right inner upper key: To Layer 0 (Mac)
+ * Right inner lower key: To Layer 6 (Win)
+ * Encoder: volume up/down, press mute
+ * Key under encoder: Mac = Ctrl+Cmd+Shift+4, Win = Win+Shift+S
+ * Win Layer 8 "Macro 5" positions are left &trans until macro details are known.
  */
 
 &lt {
@@ -24,80 +25,116 @@
 };
 
 / {
-    macros {
-        to_layer_0: to_layer_0 {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&to 0 &kp MACRO_PLACEHOLDER>;
-            label = "TO_LAYER_0";
-        };
-    };
-
-    behaviors {
-        lt_to_layer_0: lt_to_layer_0 {
-            compatible = "zmk,behavior-hold-tap";
-            label = "LAYER_TAP_TO_0";
-            bindings = <&mo>, <&to_layer_0>;
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        mac_base {
             bindings = <
-                &kp Q        &kp W        &kp E        &kp R        &kp T        &kp Y        &kp U        &kp I        &kp O        &kp P
-                &mt LSHIFT A &kp S        &kp D        &kp F        &kp G        &kp LS(LG(S)) &kp MINUS    &kp H        &kp J        &kp K        &kp L        &mt LSHIFT TAB
-                &mt LGUI Z   &kp X        &kp C        &kp V        &lt 2 B      &lt 2 N      &kp M        &kp COMMA    &kp DOT      &mt LGUI MINUS &lt 3 SLASH
-                &kp GRAVE    &mt LALT GRAVE &kp LCTRL   &lt 1 INT_HENKAN &kp SPACE    &kp BSPC     &kp ENTER    &kp DEL
+                &kp Q              &kp W              &kp E              &kp R              &kp T              &kp Y              &kp U              &kp I              &kp O              &kp P
+                &mt LSHIFT A       &kp S              &kp D              &kp F              &kp G              &kp C_MUTE         &to 0              &kp H              &kp J              &kp K              &kp L              &mt LSHIFT TAB
+                &mt LGUI Z         &kp X              &kp C              &kp V              &lt 2 B            &kp LC(LG(LS(N4))) &to 6              &lt 2 N            &kp M              &kp COMMA          &kp DOT            &mt LGUI MINUS
+                &mt LALT GRAVE     &kp LCTRL          &kp DEL            &mt LS(LALT) INT_HENKAN &lt 1 INT_MUHENKAN &kp SPACE          &kp BSPC           &kp ENTER          &lt 3 SLASH
             >;
-            sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
-        number_layer {
+        mac_number {
             bindings = <
-                &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT    &kp CARET    &kp AMPS     &kp STAR     &kp LPAR     &kp RPAR
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &kp MINUS    &kp PLUS     &kp LBKT     &kp RBKT     &trans
-                &trans       &trans       &trans       &trans       &trans       &kp SEMI     &kp BSLH     &kp COMMA    &kp DOT      &kp LBRC     &kp RBRC
-                &trans       &trans       &trans       &trans       &trans       &kp BSPC     &kp ENTER    &kp PIPE
-            >;
-        };
-
-        function_layer {
-            bindings = <
-                &kp F2       &kp F3       &kp F4       &kp F5       &kp F6       &kp F7       &kp F8       &kp F9       &kp F10      &kp F12
-                &mt LSHIFT HOME &kp PG_DN  &kp UP       &kp PG_UP    &kp PSCRN    &kp PSCRN    &kp INS      &kp PSCRN    &kp INS      &kp UP       &kp DEL      &kp HOME
-                &mt LGUI END &kp LEFT     &kp DOWN     &kp RIGHT    &trans       &trans       &kp LEFT     &kp DOWN     &kp RIGHT    &kp END      &kp ESC
-                &mt LALT GRAVE &mt LCTRL INT_MUHENKAN &trans &trans &trans       &trans       &trans       &trans
+                &kp N1             &kp N2             &kp N3             &kp N4             &kp N5             &kp N6             &kp N7             &kp N8             &kp N9             &kp N0
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &kp MINUS          &kp EQUAL          &kp LBKT           &kp RBKT           &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &lt 2 SEMI         &kp BSLH           &kp COMMA          &kp DOT            &trans
+                &trans             &trans             &trans             &trans             &trans             &kp BSPC           &kp ENTER          &trans             &kp PIPE
             >;
         };
 
-        utility_layer {
+        mac_function {
             bindings = <
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
-                &trans       &trans       &trans       &trans       &out OUT_TOG  &out OUT_TOG  &trans       &trans       &trans       &trans       &trans
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
+                &kp F2             &kp F3             &kp F4             &kp F5             &kp F6             &kp F7             &kp F8             &kp F9             &kp F10            &kp F12
+                &mt LSHIFT HOME    &kp PG_DN          &kp UP             &kp PG_UP          &kp PSCRN          &trans             &trans             &kp PSCRN          &kp INS            &kp UP             &kp DEL            &kp HOME
+                &mt LGUI END       &kp LEFT           &kp DOWN           &kp RIGHT          &trans             &trans             &trans             &trans             &kp LEFT           &kp DOWN           &kp RIGHT          &kp END
+                &mt LALT GRAVE     &mt LCTRL INT_MUHENKAN &trans          &trans             &trans             &trans             &trans             &trans             &kp ESC
             >;
         };
 
-        mouse_layer {
+        mac_utility {
             bindings = <
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &mkp MB2    &mkp MB4    &mkp MB5
-                &trans       &trans       &mkp MB4    &mkp MB5    &trans       &trans       &trans       &trans       &mkp MB1    &trans       &trans       &trans
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
-                &trans       &trans       &trans       &mo 5       &mkp MB1    &trans       &mkp MB2
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &out OUT_TOG       &trans             &trans             &out OUT_TOG       &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
             >;
         };
 
-        scroll_layer {
+        mac_mouse {
             bindings = <
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &mkp MB2    &mkp MB4    &mkp MB5
-                &trans       &trans       &mkp MB4    &mkp MB5    &trans       &trans       &trans       &trans       &mkp MB1    &trans       &trans       &trans
-                &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans       &trans
-                &trans       &trans       &trans       &to 4      &mkp MB1    &trans       &mkp MB2
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &mkp MB2           &mkp MB4           &mkp MB5
+                &trans             &trans             &mkp MB4           &mkp MB5           &trans             &trans             &trans             &trans             &mkp MB1           &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &mo 5              &mkp MB1           &mkp MB2           &trans             &trans             &trans
+            >;
+        };
+
+        mac_scroll {
+            bindings = <
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &mkp MB2           &mkp MB4           &mkp MB5
+                &trans             &trans             &mkp MB4           &mkp MB5           &trans             &trans             &trans             &trans             &mkp MB1           &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &to 4              &mkp MB1           &mkp MB2           &trans             &trans             &trans
+            >;
+        };
+
+        win_base {
+            bindings = <
+                &kp Q              &kp W              &kp E              &kp R              &kp T              &kp Y              &kp U              &kp I              &kp O              &kp P
+                &mt LSHIFT A       &kp S              &kp D              &kp F              &kp G              &kp C_MUTE         &to 0              &kp H              &kp J              &kp K              &kp L              &mt LSHIFT TAB
+                &mt LCTRL Z        &kp X              &kp C              &kp V              &lt 8 B            &kp LG(LS(S))      &to 6              &lt 8 N            &kp M              &kp COMMA          &kp DOT            &mt LCTRL MINUS
+                &mt LALT GRAVE     &trans             &trans             &lt 7 GRAVE        &kp SPACE          &kp BSPC           &kp ENTER          &trans             &lt 9 SLASH
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        win_number {
+            bindings = <
+                &kp N1             &kp N2             &kp N3             &kp N4             &kp N5             &kp N6             &kp N7             &kp N8             &kp N9             &kp N0
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &kp LBKT           &kp MINUS          &kp RBKT           &kp BSLH           &mt LSHIFT INT_YEN
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &lt 8 SEMI         &kp SQT            &kp COMMA          &kp DOT            &trans
+                &trans             &trans             &trans             &trans             &trans             &kp BSPC           &kp ENTER          &trans             &trans
+            >;
+        };
+
+        win_function {
+            bindings = <
+                &kp F2             &kp F3             &kp F4             &kp F5             &kp F6             &kp F7             &kp F8             &kp F9             &kp F10            &kp F12
+                &mt LSHIFT HOME    &kp ESC            &kp UP             &kp INS            &trans             &trans             &trans             &trans             &kp PG_UP          &kp UP             &kp PG_DN          &mt LSHIFT HOME
+                &mt LCTRL END      &kp LEFT           &kp DOWN           &kp RIGHT          &trans             &trans             &trans             &trans             &kp LEFT           &kp DOWN           &kp RIGHT          &mt LCTRL END
+                &mt LALT GRAVE     &trans             &trans             &trans             &trans             &trans             &trans             &trans             &kp F1
+            >;
+        };
+
+        win_utility {
+            bindings = <
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &out OUT_TOG       &trans             &trans             &out OUT_TOG       &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+            >;
+        };
+
+        win_mouse {
+            bindings = <
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &mkp MB2           &mkp MB4           &mkp MB5
+                &trans             &trans             &mkp MB4           &mkp MB5           &trans             &trans             &trans             &trans             &mkp MB1           &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &mo 11             &mkp MB1           &mkp MB2           &trans             &trans             &trans
+            >;
+        };
+
+        win_scroll {
+            bindings = <
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &mkp MB2           &mkp MB4           &mkp MB5
+                &trans             &trans             &mkp MB4           &mkp MB5           &trans             &trans             &trans             &trans             &mkp MB1           &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &to 10             &mkp MB1           &mkp MB2           &trans             &trans             &trans
             >;
         };
     };
