@@ -14,10 +14,6 @@
  * Win Layer 8 "Macro 5" positions are left &trans until macro details are known.
  */
 
-&lt {
-    flavor = "balanced";
-    quick-tap-ms = <0>;
-};
 
 &trackball {
     automouse-layer = <4>;
