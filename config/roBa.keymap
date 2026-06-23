@@ -15,6 +15,20 @@
  */
 
 
+&lt {
+    flavor = "balanced";
+    tapping-term-ms = <250>;
+    quick-tap-ms = <175>;
+    require-prior-idle-ms = <125>;
+};
+&mt {
+    flavor = "balanced";
+    tapping-term-ms = <250>;
+    quick-tap-ms = <175>;
+    require-prior-idle-ms = <125>;
+};
+
+
 &trackball {
     automouse-layer = <4>;
     scroll-layers = <5>;
