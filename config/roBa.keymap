@@ -16,7 +16,16 @@
 
 &lt {
     flavor = "balanced";
-    quick-tap-ms = <0>;
+    tapping-term-ms = <250>;
+    quick-tap-ms = <175>;
+    require-prior-idle-ms = <125>;
+};
+
+&mt {
+    flavor = "balanced";
+    tapping-term-ms = <250>;
+    quick-tap-ms = <175>;
+    require-prior-idle-ms = <125>;
 };
 
 &trackball {
@@ -31,8 +40,8 @@
         mac_base {
             bindings = <
                 &kp Q              &kp W              &kp E              &kp R              &kp T              &kp Y              &kp U              &kp I              &kp O              &kp P
-                &mt LSHIFT A       &kp S              &kp D              &kp F              &kp G              &kp C_MUTE         &to 0              &kp H              &kp J              &kp K              &kp L              &mt LSHIFT TAB
-                &mt LGUI Z         &kp X              &kp C              &kp V              &lt 2 B            &kp LC(LG(LS(N4))) &to 6              &lt 2 N            &kp M              &kp COMMA          &kp DOT            &mt LGUI MINUS
+                &mt LSHIFT A       &kp S              &kp D              &kp F              &kp G              &kp C_MUTE         &bt BT_SEL 0       &kp H              &kp J              &kp K              &kp L              &mt LSHIFT TAB
+                &mt LGUI Z         &kp X              &kp C              &kp V              &lt 2 B            &kp LC(LG(LS(N4))) &bt BT_SEL 1       &lt 2 N            &kp M              &kp COMMA          &kp DOT            &mt LGUI MINUS
                 &mt LALT GRAVE     &kp LCTRL          &kp DEL            &mt LS(LALT) INT_HENKAN &lt 1 INT_MUHENKAN &kp SPACE          &kp BSPC           &kp ENTER          &lt 3 SLASH
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -43,24 +52,24 @@
                 &kp N1             &kp N2             &kp N3             &kp N4             &kp N5             &kp N6             &kp N7             &kp N8             &kp N9             &kp N0
                 &trans             &trans             &trans             &trans             &trans             &trans             &trans             &kp MINUS          &kp EQUAL          &kp LBKT           &kp RBKT           &trans
                 &trans             &trans             &trans             &trans             &trans             &trans             &trans             &lt 2 SEMI         &kp BSLH           &kp COMMA          &kp DOT            &trans
-                &trans             &trans             &trans             &trans             &trans             &kp BSPC           &kp ENTER          &trans             &kp PIPE
+                &trans             &trans             &trans             &mt LS(LALT) INT_HENKAN &lt 1 INT_MUHENKAN &kp SPACE          &kp BSPC           &kp ENTER          &kp PIPE
             >;
         };
 
         mac_function {
             bindings = <
-                &kp F2             &kp F3             &kp F4             &kp F5             &kp F6             &kp F7             &kp F8             &kp F9             &kp F10            &kp F12
-                &mt LSHIFT HOME    &kp PG_DN          &kp UP             &kp PG_UP          &kp PSCRN          &trans             &trans             &kp PSCRN          &kp INS            &kp UP             &kp DEL            &kp HOME
-                &mt LGUI END       &kp LEFT           &kp DOWN           &kp RIGHT          &trans             &trans             &trans             &trans             &kp LEFT           &kp DOWN           &kp RIGHT          &kp END
-                &mt LALT GRAVE     &mt LCTRL INT_MUHENKAN &trans          &trans             &trans             &trans             &trans             &trans             &kp ESC
+                &kp F1             &kp F2             &kp F3             &kp F4             &kp F5             &kp F7             &kp F8             &kp F9             &kp F10            &kp F12
+                &mt LSHIFT HOME    &kp PG_DN          &kp UP             &kp PG_UP          &kp PSCRN          &trans             &kp F6             &kp PSCRN          &kp INS            &kp UP             &kp DEL            &kp HOME
+                &mt LGUI END       &kp LEFT           &kp DOWN           &kp RIGHT          &none              &trans             &none              &none              &kp LEFT           &kp DOWN           &kp RIGHT          &kp END
+                &mt LALT GRAVE     &mt LCTRL INT_MUHENKAN &none              &trans             &trans             &trans             &trans             &trans             &kp ESC
             >;
         };
 
         mac_utility {
             bindings = <
-                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &bt BT_SEL 0       &bt BT_SEL 1       &bt BT_SEL 2       &bt BT_SEL 3       &bt BT_SEL 4       &trans             &trans             &trans             &trans             &trans
                 &trans             &trans             &trans             &trans             &out OUT_TOG       &trans             &trans             &out OUT_TOG       &trans             &trans             &trans             &trans
-                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &to 0              &trans             &trans             &to 6              &trans             &trans             &trans             &trans
                 &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
             >;
         };
@@ -88,7 +97,7 @@
                 &kp Q              &kp W              &kp E              &kp R              &kp T              &kp Y              &kp U              &kp I              &kp O              &kp P
                 &mt LSHIFT A       &kp S              &kp D              &kp F              &kp G              &kp C_MUTE         &to 0              &kp H              &kp J              &kp K              &kp L              &mt LSHIFT TAB
                 &mt LCTRL Z        &kp X              &kp C              &kp V              &lt 8 B            &kp LG(LS(S))      &to 6              &lt 8 N            &kp M              &kp COMMA          &kp DOT            &mt LCTRL MINUS
-                &mt LALT GRAVE     &trans             &trans             &lt 7 GRAVE        &kp SPACE          &kp BSPC           &kp ENTER          &trans             &lt 9 SLASH
+                &mt LALT GRAVE     &trans             &trans             &lt 7 GRAVE        &kp INT_HENKAN     &kp SPACE          &kp BSPC           &kp ENTER          &trans
             >;
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
@@ -98,7 +107,7 @@
                 &kp N1             &kp N2             &kp N3             &kp N4             &kp N5             &kp N6             &kp N7             &kp N8             &kp N9             &kp N0
                 &trans             &trans             &trans             &trans             &trans             &trans             &trans             &kp LBKT           &kp MINUS          &kp RBKT           &kp BSLH           &mt LSHIFT INT_YEN
                 &trans             &trans             &trans             &trans             &trans             &trans             &trans             &lt 8 SEMI         &kp SQT            &kp COMMA          &kp DOT            &trans
-                &trans             &trans             &trans             &trans             &trans             &kp BSPC           &kp ENTER          &trans             &trans
+                &trans             &trans             &trans             &lt 7 GRAVE        &kp INT_HENKAN     &kp SPACE          &kp BSPC           &kp ENTER          &trans
             >;
         };
 
@@ -113,9 +122,9 @@
 
         win_utility {
             bindings = <
-                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &bt BT_SEL         &bt BT_SEL         &bt BT_SEL         &bt BT_SEL         &bt BT_SEL         &trans             &trans             &trans             &trans             &trans
                 &trans             &trans             &trans             &trans             &out OUT_TOG       &trans             &trans             &out OUT_TOG       &trans             &trans             &trans             &trans
-                &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
+                &trans             &trans             &trans             &trans             &to 0              &trans             &trans             &to 6              &trans             &trans             &trans             &trans
                 &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans             &trans
             >;
         };
